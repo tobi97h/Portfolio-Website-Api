@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <UserSecretsId>8d41f734-4edf-4daf-a2a4-93585dfa5cf1</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
+    <PackageReference Include="MySqlConnector" Version="2.3.0-beta.1" />
+    <PackageReference Include="Refit" Version="6.3.2" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
+    <PackageReference Include="SecretsProvider" Version="1.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+</Project>
