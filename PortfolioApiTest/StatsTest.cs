@@ -13,6 +13,16 @@ public class StatsTest : IClassFixture<WebApplicationFactory<Startup>>
     }
 
     [Fact]
+
+    public async Task TestStats()
+    {
+        var client = _factory.CreateClient();
+
+        var statsResponse = await client.GetAsync("/stats/stats");
+        var statsBody = await statsResponse.Content.ReadAsStringAsync();
+    }
+    
+    [Fact]
     public async Task Commits()
     {
         var client = _factory.CreateClient();

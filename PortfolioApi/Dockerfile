@@ -6,16 +6,17 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["PortfolioApi/PortfolioApi.csproj", "PortfolioApi/"]
+COPY ["PortfolioApi.csproj", "PortfolioApi/"]
 RUN dotnet restore "PortfolioApi/PortfolioApi.csproj"
-COPY . .
 WORKDIR "/src/PortfolioApi"
+COPY . .
 RUN dotnet build "PortfolioApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "PortfolioApi.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
+RUN apt update -y && apt install git -y
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "PortfolioApi.dll"]
