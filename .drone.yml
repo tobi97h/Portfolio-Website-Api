@@ -1,0 +1,29 @@
+kind: pipeline
+type: ssh
+name: deploy_prod_backend
+
+server:
+  host:
+    from_secret: ssh_host_prod
+  user: root
+  password:
+    from_secret: ssh_password_prod
+
+steps:
+  - name: deploy
+    environment:
+      loki_sink:
+        from_secret: loki_sink
+      PF_SECRETS:
+        from_secret: pf_secrets
+      COMPOSE_PROJECT_NAME: webservicesjitcom
+    commands:
+      - docker compose -f PortfolioApi/docker-compose_prod.yaml build
+      - docker compose -f PortfolioApi/docker-compose_prod.yaml up -d
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+
