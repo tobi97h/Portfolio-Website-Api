@@ -16,7 +16,7 @@ steps:
         from_secret: loki_sink
       PF_SECRETS:
         from_secret: pf_secrets
-      COMPOSE_PROJECT_NAME: webservicesjitcom
+      COMPOSE_PROJECT_NAME: webservices
     commands:
       - docker compose -f PortfolioApi/docker-compose_prod.yaml build
       - docker compose -f PortfolioApi/docker-compose_prod.yaml up -d
