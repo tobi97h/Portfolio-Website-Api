@@ -84,6 +84,16 @@ public class SingletonStatsProvider
                 }
             }
             
+            // delete downloaded repos
+            try
+            {
+                Directory.Delete(repoFolder, true);
+            }
+            catch (Exception e)
+            {
+                
+            }
+            
             return new Stats
             {
                 commits = commits,

@@ -38,7 +38,12 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-  
+
+        using (var scope = app.Services.CreateScope())
+        {
+            scope.ServiceProvider.GetRequiredService<SingletonStatsProvider>().GetStats();
+        }
+        
         app.MapControllers();
         
         app.Run();
