@@ -37,7 +37,15 @@ public class SingletonStatsProvider
             
             // calc lines of code
             var repoFolder = "tempRepos";
-            Directory.Delete(repoFolder, true);
+            try
+            {
+                Directory.Delete(repoFolder, true);
+            }
+            catch (Exception e)
+            {
+                
+            }
+            
             Directory.CreateDirectory(repoFolder);
             foreach (var repo in repos)
             {
