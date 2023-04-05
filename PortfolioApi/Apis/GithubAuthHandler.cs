@@ -1,8 +1,9 @@
 using System.Net.Http.Headers;
 using System.Text;
+using PortfolioApi.Model;
 using SecretsProvider;
 
-namespace PortfolioApi;
+namespace PortfolioApi.Apis;
 
 public class GithubAuthHandler : DelegatingHandler
 {

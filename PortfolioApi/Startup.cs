@@ -1,5 +1,7 @@
 using MySqlConnector;
+using PortfolioApi.Apis;
 using PortfolioApi.Controllers;
+using PortfolioApi.Model;
 using Refit;
 using SecretsProvider;
 

@@ -1,6 +1,7 @@
+using PortfolioApi.Model;
 using Refit;
 
-namespace PortfolioApi;
+namespace PortfolioApi.Apis;
 
 [Headers("User-Agent: StatsAgent")]
 public interface IGithubApi

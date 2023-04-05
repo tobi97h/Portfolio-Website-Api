@@ -1,4 +1,4 @@
-namespace PortfolioApi.Controllers;
+namespace PortfolioApi.Model;
 
 public class Stats
 {

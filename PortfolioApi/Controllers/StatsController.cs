@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MySqlConnector;
+using PortfolioApi.Model;
 
 namespace PortfolioApi.Controllers
 {

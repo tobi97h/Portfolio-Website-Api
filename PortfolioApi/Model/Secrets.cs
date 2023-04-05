@@ -1,4 +1,4 @@
-namespace PortfolioApi;
+namespace PortfolioApi.Model;
 
 public class Secrets
 {

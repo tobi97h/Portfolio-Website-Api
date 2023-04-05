@@ -1,6 +1,7 @@
-﻿using Refit;
+﻿using PortfolioApi.Model;
+using Refit;
 
-namespace PortfolioApi;
+namespace PortfolioApi.Apis;
 
 public interface IGhostApi
 {

@@ -1,4 +1,6 @@
 ﻿using System.IO.Compression;
+using PortfolioApi.Apis;
+using PortfolioApi.Model;
 using SecretsProvider;
 
 namespace PortfolioApi.Controllers;
