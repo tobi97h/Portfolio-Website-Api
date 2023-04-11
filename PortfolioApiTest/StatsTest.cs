@@ -19,6 +19,7 @@ public class StatsTest : IClassFixture<WebApplicationFactory<Startup>>
 
         var statsResponse = await client.GetAsync("/stats/stats");
         var statsBody = await statsResponse.Content.ReadAsStringAsync();
+        Assert.NotEmpty(statsBody);
     }
     
     [Fact]
