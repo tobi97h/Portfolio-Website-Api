@@ -33,7 +33,9 @@ public class SingletonStatsProvider
             var ghostApi = scope.ServiceProvider.GetRequiredService<IGhostApi>();
             var postsResponse = await ghostApi.GetPosts(secrets.GhostToken);
             
-            
+            // drone stats
+            var droneApi = scope.ServiceProvider.GetRequiredService<IDroneApi>();
+            var pipelines = await droneApi.GetRepos();
             
             var repos = githubApi.GetUserRepos().Result;
             
@@ -101,7 +103,8 @@ public class SingletonStatsProvider
                 commits = commits,
                 repos = repos.Length,
                 linesOfCode = totalLines,
-                ghostBlogEntries = postsResponse.meta.pagination.total
+                ghostBlogEntries = postsResponse.meta.pagination.total,
+                executedBuilds = pipelines.Select(p => p.counter).Sum()
             };
         }
     }

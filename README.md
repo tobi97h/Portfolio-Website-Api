@@ -12,6 +12,7 @@ dotnet user-secrets set "PF:ValidSourceCodeFiles" ""
 dotnet user-secrets set "PF:DBConnectionString" ""
 dotnet user-secrets set "PF:GhostToken" ""
 dotnet user-secrets set "PF:GhostUrl" ""
+dotnet user-secrets set "PF:DroneToken" ""
 ```
 
 The required tokens are the simple api access tokens that both platforms provide.

@@ -21,7 +21,11 @@ public class Startup
             .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://api.github.com"))
             .AddHttpMessageHandler<GithubAuthHandler>();
         
-        
+        builder.Services.AddTransient<DroneAuthHandler>();
+        builder.Services.AddRefitClient<IDroneApi>()
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://drone.tobias-huebner.tech"))
+            .AddHttpMessageHandler<DroneAuthHandler>();
+
         builder.Services.AddRefitClient<IGhostApi>()
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(secrets.GhostUrl));
         

@@ -9,4 +9,6 @@ public class Stats
     public long linesOfCode { get; set; }
     
     public long ghostBlogEntries { get; set; }
+    
+    public long executedBuilds { get; set; }
 }
