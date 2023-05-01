@@ -1,4 +1,5 @@
 using MySqlConnector;
+using Npgsql;
 using PortfolioApi.Apis;
 using PortfolioApi.Controllers;
 using PortfolioApi.Model;
@@ -29,11 +30,12 @@ public class Startup
         builder.Services.AddRefitClient<IGhostApi>()
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(secrets.GhostUrl));
         
+        builder.Services.AddRefitClient<ISuggestAdminApi>()
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://suggest-app.com"));
+        
         builder.Services.AddSingleton<SingletonStatsProvider>();
         builder.Services.AddControllers();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddTransient<MySqlConnection>(provider => new MySqlConnection(provider.GetRequiredService<ISecretsProvider>().GetSecret<Secrets>()
-            .DBConnectionString));
     }
 
     public async Task Configure(WebApplication app)

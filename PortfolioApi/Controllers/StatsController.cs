@@ -8,13 +8,10 @@ namespace PortfolioApi.Controllers
     [Route("stats")]
     public class StatsController : ControllerBase
     {
-        private readonly MySqlConnection _mySqlConnection;
-        
         private readonly SingletonStatsProvider _statsProvider;
         
-        public StatsController(MySqlConnection mySqlConnection, SingletonStatsProvider statsProvider)
+        public StatsController(SingletonStatsProvider statsProvider)
         {
-            _mySqlConnection = mySqlConnection;
             _statsProvider = statsProvider;
         }
 
