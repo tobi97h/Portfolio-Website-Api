@@ -11,4 +11,8 @@ public class Stats
     public long ghostBlogEntries { get; set; }
     
     public long executedBuilds { get; set; }
+    
+    public long suggestMinutes { get; set; }
+    
+    public long suggestUsers { get; set; }
 }

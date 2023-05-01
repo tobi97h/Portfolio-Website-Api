@@ -1,4 +1,5 @@
 ﻿using System.IO.Compression;
+using MySqlConnector;
 using PortfolioApi.Apis;
 using PortfolioApi.Model;
 using SecretsProvider;
@@ -25,6 +26,28 @@ public class SingletonStatsProvider
     {
         using (var scope = _scopeFactory.CreateScope())
         {
+            // fetch suggest stats
+            var mySqlConnectionMinutes = scope.ServiceProvider.GetRequiredService<MySqlConnection>();
+            await mySqlConnectionMinutes.OpenAsync();
+            using var commandMinutes = new MySqlCommand("SELECT TotalSeconds FROM PlaybackSummaries;",mySqlConnectionMinutes);
+            using var readerMinutes = await commandMinutes.ExecuteReaderAsync();
+            var suggestMinutes = 0l;
+            while (await readerMinutes.ReadAsync())
+            {
+                var minutes = readerMinutes.GetInt64("TotalSeconds") / 60;
+                suggestMinutes += minutes;
+            }
+            
+            var mySqlConnectionUsers = scope.ServiceProvider.GetRequiredService<MySqlConnection>();
+            await mySqlConnectionUsers.OpenAsync();
+            using var commandUsers = new MySqlCommand("SELECT count(*) FROM User;",mySqlConnectionUsers);
+            using var readerUsers = await commandUsers.ExecuteReaderAsync();
+            var suggestUsers = 0l;
+            if (await readerUsers.ReadAsync())
+            {
+                suggestUsers = readerUsers.GetInt64(0);
+            }
+            
             var githubApi = scope.ServiceProvider.GetRequiredService<IGithubApi>();
             var secretsProvider = scope.ServiceProvider.GetRequiredService<ISecretsProvider>();
             var secrets = secretsProvider.GetSecret<Secrets>();
@@ -104,7 +127,9 @@ public class SingletonStatsProvider
                 repos = repos.Length,
                 linesOfCode = totalLines,
                 ghostBlogEntries = postsResponse.meta.pagination.total,
-                executedBuilds = pipelines.Select(p => p.counter).Sum()
+                executedBuilds = pipelines.Select(p => p.counter).Sum(),
+                suggestMinutes = suggestMinutes,
+                suggestUsers = suggestUsers
             };
         }
     }
