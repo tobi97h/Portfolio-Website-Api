@@ -12,7 +12,7 @@ public class Startup
 {
     public void ConfigureServices(WebApplicationBuilder builder)
     {
-        builder.AddSecretsProvider("PFS");
+        builder.AddSecretsProvider("PF");
         var tempProvider = builder.Services.BuildServiceProvider();
         ISecretsProvider secretsProvider = tempProvider.GetRequiredService<ISecretsProvider>();
         var secrets = secretsProvider.GetSecret<Secrets>();
