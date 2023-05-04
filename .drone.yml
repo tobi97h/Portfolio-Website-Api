@@ -10,7 +10,7 @@ server:
     from_secret: ssh_password_prod
 
 steps:
-  - name: deploy
+  - name: deploy-tobi
     environment:
       loki_sink:
         from_secret: loki_sink
@@ -20,6 +20,14 @@ steps:
     commands:
       - docker compose -f PortfolioApi/docker-compose_tobi.yaml build
       - docker compose -f PortfolioApi/docker-compose_tobi.yaml up -d
+  - name: deploy-claes
+    environment:
+      loki_sink:
+        from_secret: loki_sink
+      PF_SECRETS:
+        from_secret: pf_secrets_claes
+      COMPOSE_PROJECT_NAME: webservices
+    commands:
       - docker compose -f PortfolioApi/docker-compose_claes.yaml build
       - docker compose -f PortfolioApi/docker-compose_claes.yaml up -d
 
