@@ -26,7 +26,7 @@ steps:
         from_secret: loki_sink
       PF_SECRETS:
         from_secret: pf_secrets_claes
-      COMPOSE_PROJECT_NAME: webservices
+      COMPOSE_PROJECT_NAME: webservicesclaes
     commands:
       - docker compose -f PortfolioApi/docker-compose_claes.yaml build
       - docker compose -f PortfolioApi/docker-compose_claes.yaml up -d
