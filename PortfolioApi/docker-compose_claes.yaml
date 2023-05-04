@@ -1,0 +1,20 @@
+version: "3.0"
+
+services: 
+  pf-api:
+    restart: always
+    build: .
+    entrypoint: [ "dotnet", "PortfolioApi.dll", "--environment=Production" ]
+    environment:
+      - PF_SECRETS=${PF_SECRETS}
+    networks:
+      - claes-work
+    logging:
+      driver: "loki"
+      options:
+        loki-url: ${loki_sink}
+        loki-retries: 3
+
+networks:
+  claes-work:
+    external: true

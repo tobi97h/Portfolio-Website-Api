@@ -34,14 +34,27 @@ public class SingletonStatsProvider
             var githubApi = scope.ServiceProvider.GetRequiredService<IGithubApi>();
             var secretsProvider = scope.ServiceProvider.GetRequiredService<ISecretsProvider>();
             var secrets = secretsProvider.GetSecret<Secrets>();
-            
-            // ghost stats 
-            var ghostApi = scope.ServiceProvider.GetRequiredService<IGhostApi>();
-            var postsResponse = await ghostApi.GetPosts(secrets.GhostToken);
-            
-            // drone stats
-            var droneApi = scope.ServiceProvider.GetRequiredService<IDroneApi>();
-            var pipelines = await droneApi.GetRepos();
+
+
+            long ghostBlogEntries = 0;
+            if (secrets.GhostToken != null)
+            {
+                // ghost stats 
+                var ghostApi = scope.ServiceProvider.GetRequiredService<IGhostApi>();
+                var postsResponse = await ghostApi.GetPosts(secrets.GhostToken);
+                ghostBlogEntries = postsResponse.meta.pagination.total;
+            }
+
+            long executedPipelines = 0l;
+
+            if (secrets.DroneToken != null)
+            {
+                // drone stats
+                var droneApi = scope.ServiceProvider.GetRequiredService<IDroneApi>();
+                var pipelines = await droneApi.GetRepos();
+                executedPipelines = pipelines.Select(p => p.counter).Sum();
+            }
+         
             
             var repos = githubApi.GetUserRepos().Result;
             
@@ -109,8 +122,8 @@ public class SingletonStatsProvider
                 commits = commits,
                 repos = repos.Length,
                 linesOfCode = totalLines,
-                ghostBlogEntries = postsResponse.meta.pagination.total,
-                executedBuilds = pipelines.Select(p => p.counter).Sum(),
+                ghostBlogEntries = ghostBlogEntries,
+                executedBuilds = executedPipelines,
                 suggestMinutes = suggestStats.UserMinutes,
                 suggestUsers = suggestStats.Users
             };

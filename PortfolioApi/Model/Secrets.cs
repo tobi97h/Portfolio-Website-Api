@@ -10,7 +10,7 @@ public class Secrets
     
     public string GhostToken { get; set; }
     
-    public string GhostUrl { get; set; }
+    public string? GhostUrl { get; set; }
     
-    public string DroneToken { get; set; }
+    public string? DroneToken { get; set; }
 }

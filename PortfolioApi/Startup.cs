@@ -12,7 +12,7 @@ public class Startup
 {
     public void ConfigureServices(WebApplicationBuilder builder)
     {
-        builder.AddSecretsProvider("PF");
+        builder.AddSecretsProvider("PFS");
         var tempProvider = builder.Services.BuildServiceProvider();
         ISecretsProvider secretsProvider = tempProvider.GetRequiredService<ISecretsProvider>();
         var secrets = secretsProvider.GetSecret<Secrets>();
@@ -28,7 +28,10 @@ public class Startup
             .AddHttpMessageHandler<DroneAuthHandler>();
 
         builder.Services.AddRefitClient<IGhostApi>()
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri(secrets.GhostUrl));
+            .ConfigureHttpClient(c =>
+            {
+                if(secrets.GhostUrl != null) c.BaseAddress = new Uri(secrets.GhostUrl);
+            });
         
         builder.Services.AddRefitClient<ISuggestAdminApi>()
             .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://suggest-app.com"));
