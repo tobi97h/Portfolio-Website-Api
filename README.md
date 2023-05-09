@@ -15,4 +15,7 @@ dotnet user-secrets set "PF:GhostUrl" ""
 dotnet user-secrets set "PF:DroneToken" ""
 ```
 
-The required tokens are the simple api access tokens that both platforms provide.
+The required tokens are the simple api access tokens that the platforms provide. 
+
+! This api fetches all information once initially on startup, the interval at which the stats are fetched depend on the backup jobs that
+stop and start the containers.!
